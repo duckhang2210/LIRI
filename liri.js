@@ -16,15 +16,15 @@ function switchCase() {
 
   switch (action) {
 
-    case 'concert':
+    case 'concert-this':
       bandsInTown(parameter);                   
       break;                          
 
-    case 'spotify':
+    case 'spotify-this-song':
       spotSong(parameter);
       break;
 
-    case 'movie':
+    case 'movie-this':
       movieInfo(parameter);
       break;
 
@@ -104,7 +104,6 @@ function bandsInTown(parameter){
             logIt('Error occurred: ' + error);
             return;
           } else {
-            let spotifyArr = data.tracks.items;
     
             for (i = 0; i < 5; i++) {
                 logIt("\n-----------------------"+searchTrack+"----------------------------\n");
@@ -119,6 +118,38 @@ function bandsInTown(parameter){
         }
         );
     }
+
+    //movie
+    function movieInfo(parameter) {
+
+
+        var movieNameInput;
+        if (parameter === undefined) {
+          movieNameInput = "Green Book";
+        } else {
+          movieNameInput = parameter;
+        };
+      
+        var queryUrl = "http://www.omdbapi.com/?t=" + movieNameInput + "&y=&plot=short&apikey=trilogy";
+        
+        request(queryUrl, function(err, res, body) {
+            var movieData = JSON.parse(body);
+
+
+          if (!err && res.statusCode === 200) {
+            logIt("\n------------------------"+movieNameInput+"---------------------------\n");
+            logIt("Title: " + movieData.Title);
+            logIt("Release Year: " + movieData.Year);
+            logIt("IMDB Rating: " + movieData.imdbRating);
+            logIt("Rotten Tomatoes Rating: " + movieData.Ratings[1]['Value']); 
+            logIt("Country: " + movieData.Country);
+            logIt("Language: " + movieData.Language);
+            logIt("Plot: " + movieData.Plot);
+            logIt("Actors: " + movieData.Actors);
+            logIt("\n---------------------------------------------------\n");
+          }
+        });
+      };
 
     //log info to log.txt
     function logIt(dataToLog) {
