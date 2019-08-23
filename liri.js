@@ -42,19 +42,14 @@ function switchCase() {
 //Concert search
 function bandsInTown(parameter){
 
-    if (action === 'concert')
-    {
+   
         var artisName="";
         for (var i = 3; i < process.argv.length; i++)
         {
             artisName+=process.argv[i];
         }
         console.log(artisName);
-    }
-    else
-    {
-        artisName = parameter;
-    }
+    
     
     
     
@@ -87,6 +82,42 @@ function bandsInTown(parameter){
         }
       }
     });
+    }
+
+    //Spotify
+
+    function spotSong(parameter) {
+
+
+        var searchTrack;
+        if (parameter === undefined) {
+          searchTrack = "Disenchanted";
+        } else {
+          searchTrack = parameter;
+        }
+      
+        spotify.search({
+          type: 'track',
+          query: searchTrack
+        }, function(error, data) {
+          if (error) {
+            logIt('Error occurred: ' + error);
+            return;
+          } else {
+            let spotifyArr = data.tracks.items;
+    
+            for (i = 0; i < 5; i++) {
+                logIt("\n-----------------------"+searchTrack+"----------------------------\n");
+                logIt("Artist: " + data.tracks.items[i].artists[0].name);
+                logIt("Song: " + data.tracks.items[i].name);
+                logIt("Link: " + data.tracks.items[i].external_urls.spotify);
+                logIt("Album: " + data.tracks.items[i].album.name);
+                logIt("\n---------------------------------------------------\n");
+            
+                }
+            }
+        }
+        );
     }
 
     //log info to log.txt
