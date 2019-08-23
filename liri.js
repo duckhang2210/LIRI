@@ -4,7 +4,7 @@ var keys = require("./keys.js");
 var request = require('request');
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
-
+const moment = require('moment');
 
 var action = process.argv[2];
 var parameter = process.argv.slice(3).join(" ");
@@ -66,18 +66,15 @@ function bandsInTown(parameter){
       if (!error && response.statusCode === 200) {
     
         var JS = JSON.parse(body);
-        for (i = 0; i < JS.length; i++)
+        for (i = 0; i < 5; i++)
         {
-          var dTime = JS[i].datetime;
-            var month = dTime.substring(5,7);
-            var year = dTime.substring(0,4);
-            var day = dTime.substring(8,10);
-            var dateForm = month + "/" + day + "/" + year
-      
+          var concertDate = moment(JS[i].datetime).format("MM/DD/YYYY hh:00 A");
+
+
           logIt("\n---------------------- "+artisName+" -----------------------------\n");
     
             
-          logIt("Date: " + dateForm);
+          logIt("Date: " + concertDate);
           logIt("Name: " + JS[i].venue.name);
           logIt("City: " + JS[i].venue.city);
           if (JS[i].venue.region !== "")
