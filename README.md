@@ -29,7 +29,7 @@ User will input the command line *movie-this* and then the name of the movie the
   
 ##### Concert-this
 node liri.js *concert-this* *artist/band*
-![command line](images/concert-this.PNG)
+![command line](/images/concert-this.PNG)
 User will input the command line *concert-this* and then the name of the artist/band they want to search. Liri returns
   - Date and time
   - Name of the venue

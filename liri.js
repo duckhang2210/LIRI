@@ -5,12 +5,8 @@ var request = require('request');
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 const moment = require('moment');
-
 var action = process.argv[2];
 var parameter = process.argv.slice(3).join(" ");
-
-
-
 
 function switchCase() {
 
